@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_icons"
+        android:icon="@drawable/ic_baseline_category_24"
+        android:title="menuIcon"
+        app:showAsAction="ifRoom"/>
+
+    <group>
+
+            <item
+                android:id="@+id/app_Sport"
+                android:title="Спорт"
+               app:actionViewClass="android.widget.SearchView" />
+
+            <item
+               android:id="@+id/app_Politics"
+                android:title="Политика"
+               app:actionViewClass="android.widget.SearchView" />
+
+            <item
+               android:id="@+id/app_Money"
+               android:title="Валюты"
+               app:actionViewClass="android.widget.SearchView" />
+
+        </group>
+</menu>
