@@ -1,5 +1,6 @@
 package com.example.newspapers
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        adapter = NewsAdapter(Handler(Looper.getMainLooper()))
+        adapter = NewsAdapter(Handler(Looper.getMainLooper()), this)
 
         mRecyclerView = findViewById(R.id.recyclerView)
         mRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -45,10 +46,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun itemOnClickList(holder: NewsAdapter.ViewHolder, position: Int){
-        holder.title.setOnClickListener {
-            holder.title.text = "Item_num: $position"
-        }
+    fun itemOnClickList(title: String, image: String, mainActivity: MainActivity){
+        val intent = Intent(mainActivity, ReadActivity::class.java)
+        intent.putExtra("name", title)
+        intent.putExtra("image", image)
+        startActivity(intent)
     }
     override fun onDestroy() {
         super.onDestroy()

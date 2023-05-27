@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import java.util.concurrent.Executors
 
-class NewsAdapter(private val mainHandler: Handler): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(private val mainHandler: Handler, private val activity: MainActivity): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     @Volatile private var data: List<News> = emptyList()
     private var page = 1
@@ -26,7 +26,7 @@ class NewsAdapter(private val mainHandler: Handler): RecyclerView.Adapter<NewsAd
         holder.title.text = news.title
         Picasso.get().load(news.image).into(holder.image)
 
-        holder.title.setOnClickListener {MainActivity().itemOnClickList(holder, position)}
+        holder.title.setOnClickListener {activity.itemOnClickList(news.title, news.image, activity)}
 
         if (inProgress || position != data.size - 1) return
         inProgress = true
@@ -36,9 +36,7 @@ class NewsAdapter(private val mainHandler: Handler): RecyclerView.Adapter<NewsAd
                 val size = data.size
                 data = data + newData
                 mainHandler.post {
-                    notifyItemRangeInserted(size /* Возможно надо +1, Сак чей-то кок,
-                     Илья или Влад, если кто то это из вас это прочитал - тот гей))), я прочитал и гей тоже :( */
-                        ,newData.size)
+                    notifyItemRangeInserted(size,newData.size)
                     inProgress = false
                 }
             }
